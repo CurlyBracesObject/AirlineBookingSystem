@@ -618,36 +618,22 @@ SELECT COUNT(*) FROM feiji;
 SELECT COUNT(*) FROM feiji_zuo_wei;
 ```
 
-### Application Deployment
-```bash
-# Build the application
-mvn clean compile package
 
-# Deploy to Tomcat
-cp target/AirlineBookingSystem.war $TOMCAT_HOME/webapps/
 
-# Start Tomcat server
-$TOMCAT_HOME/bin/startup.sh
+## API Endpoints Documentation
 
-# Access application
-# http://localhost:8080/AirlineBookingSystem
-```
-
-### Default User Accounts
-```
-Administrator: admin / 123456 (Role: 1)
-Manager: test / test (Role: 3)
-Customer: Use employee registration system (Role: 2)
-```
-
-API Endpoints Documentation
-Authentication Endpoints
-httpPOST /login
+### Authentication Endpoints
+```http
+POST /login
 Content-Type: application/x-www-form-urlencoded
 
 loginname=admin&password=123456&tip=1
-Flight Management API
-http# List all flights
+```
+
+### Flight Management API
+
+```http
+# List all flights
 GET /feiji/list
 
 # Create new flight
@@ -665,8 +651,12 @@ POST /feiji/update/entity
 
 # Delete flight
 POST /feiji/delete?id=1
-Seat Management API
-http# View available seats for flight
+```
+
+### Seat Management API
+
+```http
+# View available seats for flight
 GET /feijizuowei/toyuding?fei_ji_id=1
 
 # Complete seat booking
@@ -674,8 +664,12 @@ POST /feijizuowei_pass/save/yuding
 Content-Type: application/x-www-form-urlencoded
 
 id=1&id_card=123456789&real_name=John%20Doe&email=john@example.com
-User Management API
-http# List users (Admin only)
+```
+
+### User Management API
+
+```http
+# List users (Admin only)
 GET /user/list
 
 # Create new user
@@ -684,6 +678,7 @@ POST /user/add
 # User logout
 GET /user/logout
 ```
+
 
 ## Project Results
 
