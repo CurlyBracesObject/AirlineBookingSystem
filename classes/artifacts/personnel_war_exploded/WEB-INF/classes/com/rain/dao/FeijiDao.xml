@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rain.dao.FeiJiDao">
+
+    <resultMap type="com.rain.domain.FeiJi" id="FeijiMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="fei_ji_name" column="fei_ji_name" jdbcType="VARCHAR"/>
+        <result property="chu_fa_di" column="chu_fa_di" jdbcType="VARCHAR"/>
+        <result property="mu_di_di" column="mu_di_di" jdbcType="VARCHAR"/>
+        <result property="qi_fei_time" column="qi_fei_time" jdbcType="VARCHAR"/>
+        <result property="dao_da_time" column="dao_da_time" jdbcType="VARCHAR"/>
+        <result property="zuo_wei_total" column="zuo_wei_total" jdbcType="INTEGER"/>
+        <result property="sheng_yu_total" column="sheng_yu_total" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="FeijiMap">
+        select *
+        from feiji
+        where id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="FeijiMap">
+        select
+        id, fei_ji_name, chu_fa_di, mu_di_di, qi_fei_time, dao_da_time,zuo_wei_total,sheng_yu_total
+        from feiji
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="fei_ji_name != null and fei_ji_name != ''">
+                and fei_ji_name = #{fei_ji_name}
+            </if>
+            <if test="chu_fa_di != null and chu_fa_di != ''">
+                and chu_fa_di = #{chu_fa_di}
+            </if>
+            <if test="mu_di_di != null and mu_di_di != ''">
+                and mu_di_di = #{mu_di_di}
+            </if>
+            <if test="qi_fei_time != null">
+                and qi_fei_time = #{qi_fei_time}
+            </if>
+            <if test="dao_da_time != null">
+                and dao_da_time = #{dao_da_time}
+            </if>
+            <if test="zuo_wei_total != null">
+                and zuo_wei_total = #{zuo_wei_total}
+            </if>
+        </where>
+        limit #{pageable.offset}, #{pageable.pageSize}
+    </select>
+
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(1)
+        from feiji
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="fei_ji_name != null and fei_ji_name != ''">
+                and fei_ji_name = #{fei_ji_name}
+            </if>
+            <if test="chu_fa_di != null and chu_fa_di != ''">
+                and chu_fa_di = #{chu_fa_di}
+            </if>
+            <if test="mu_di_di != null and mu_di_di != ''">
+                and mu_di_di = #{mu_di_di}
+            </if>
+            <if test="qi_fei_time != null">
+                and qi_fei_time = #{qi_fei_time}
+            </if>
+            <if test="dao_da_time != null">
+                and dao_da_time = #{dao_da_time}
+            </if>
+            <if test="zuo_wei_total != null">
+                and zuo_wei_total = #{zuo_wei_total}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into feiji(fei_ji_name, chu_fa_di, mu_di_di, qi_fei_time, dao_da_time, zuo_wei_total, sheng_yu_total)
+        values (#{fei_ji_name}, #{chu_fa_di}, #{mu_di_di}, #{qi_fei_time}, #{dao_da_time}, #{zuo_wei_total}, #{sheng_yu_total})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update feiji
+        <set>
+            <if test="fei_ji_name != null and fei_ji_name != ''">
+                fei_ji_name = #{fei_ji_name},
+            </if>
+            <if test="chu_fa_di != null and chu_fa_di != ''">
+                chu_fa_di = #{chu_fa_di},
+            </if>
+            <if test="mu_di_di != null and mu_di_di != ''">
+                mu_di_di = #{mu_di_di},
+            </if>
+            <if test="qi_fei_time != null">
+                qi_fei_time = #{qi_fei_time},
+            </if>
+            <if test="dao_da_time != null">
+                dao_da_time = #{dao_da_time},
+            </if>
+            <if test="zuo_wei_total != null">
+                zuo_wei_total = #{zuo_wei_total},
+            </if>
+            <if test="sheng_yu_total != null">
+                sheng_yu_total = #{sheng_yu_total},
+            </if>
+            <if test="status != null">
+                status = #{status}
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete
+        from feiji
+        where id = #{id}
+    </delete>
+
+
+    <select id="selectList" resultMap="FeijiMap">
+        select *
+        from feiji
+        <where>
+            <if test="fei_ji_name != null and fei_ji_name != ''">
+                and fei_ji_name = #{fei_ji_name}
+            </if>
+            <if test="chu_fa_di != null and chu_fa_di != ''">
+                and chu_fa_di = #{chu_fa_di}
+            </if>
+            <if test="mu_di_di != null and mu_di_di != ''">
+                and mu_di_di = #{mu_di_di}
+            </if>
+            <if test="qi_fei_time != null">
+                and qi_fei_time <![CDATA[ >= ]]> #{qi_fei_time}
+            </if>
+            <if test="dao_da_time != null">
+                and dao_da_time <![CDATA[ <= ]]> #{dao_da_time}
+            </if>
+            <if test="zuo_wei_total != null">
+                and zuo_wei_total = #{zuo_wei_total}
+            </if>
+            <if test="status != null">
+                and status = #{status}
+            </if>
+        </where>
+
+    </select>
+
+    <select id="selectListByIdList" resultMap="FeijiMap">
+        select *
+        from feiji
+        <where>
+            id in
+            <foreach collection="list" open="(" close=")" item="item" separator=",">
+                #{item}
+            </foreach>
+        </where>
+
+    </select>
+
+
+</mapper>
+

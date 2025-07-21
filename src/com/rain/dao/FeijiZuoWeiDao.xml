@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rain.dao.FeijiZuoWeiDao">
+
+    <resultMap type="com.rain.domain.FeijiZuoWei" id="TFeijiZuoWeiMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="fei_ji_id" column="fei_ji_id" jdbcType="INTEGER"/>
+        <result property="row" column="row" jdbcType="INTEGER"/>
+        <result property="col" column="col" jdbcType="INTEGER"/>
+        <result property="type" column="type" jdbcType="VARCHAR"/>
+        <result property="price" column="price" jdbcType="VARCHAR"/>
+        <result property="status" column="status" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="TFeijiZuoWeiMap">
+        select *
+        from feiji_zuo_wei
+        where id = #{id}
+    </select>
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(1)
+        from feiji_zuo_wei
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="fei_ji_id != null">
+                and fei_ji_id = #{fei_ji_id}
+            </if>
+            <if test="row != null">
+                and row = #{row}
+            </if>
+            <if test="col != null">
+                and col = #{col}
+            </if>
+            <if test="type != null and type != ''">
+                and type = #{type}
+            </if>
+            <if test="price != null and price != ''">
+                and price = #{price}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into feiji_zuo_wei(fei_ji_id, row, col, type, price)
+        values (#{fei_ji_id}, #{row}, #{col}, #{type}, #{price})
+    </insert>
+
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update feiji_zuo_wei
+        <set>
+            <if test="fei_ji_id != null">
+                fei_ji_id = #{fei_ji_id},
+            </if>
+            <if test="row != null">
+                row = #{row},
+            </if>
+            <if test="col != null">
+                col = #{col},
+            </if>
+            <if test="type != null and type != ''">
+                type = #{type},
+            </if>
+            <if test="price != null and price != ''">
+                price = #{price},
+            </if>
+            <if test="status != null and status != ''">
+                status = #{status},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete
+        from feiji_zuo_wei
+        where id = #{id}
+    </delete>
+
+
+    <select id="selectList" resultMap="TFeijiZuoWeiMap">
+        select *
+        from feiji_zuo_wei
+        <where>
+            <if test="fei_ji_id != null">
+                and fei_ji_id = #{fei_ji_id}
+            </if>
+            <if test="row != null">
+                and row = #{row}
+            </if>
+            <if test="col != null">
+                and col = #{col}
+            </if>
+            <if test="type != null and type != ''">
+                and type = #{type}
+            </if>
+            <if test="price != null and price != ''">
+                and price = #{price}
+            </if>
+        </where>
+    </select>
+</mapper>
+
