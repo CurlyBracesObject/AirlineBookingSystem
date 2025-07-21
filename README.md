@@ -640,26 +640,22 @@ Manager: test / test (Role: 3)
 Customer: Use employee registration system (Role: 2)
 ```
 
-## API Endpoints Documentation
-
-### Authentication Endpoints
-```http
-POST /login
+API Endpoints Documentation
+Authentication Endpoints
+httpPOST /login
 Content-Type: application/x-www-form-urlencoded
 
 loginname=admin&password=123456&tip=1
-```
-
-### Flight Management API
-```http
-# List all flights
+Flight Management API
+http# List all flights
 GET /feiji/list
 
 # Create new flight
 POST /feiji/save/entity
 Content-Type: application/x-www-form-urlencoded
 
-fei_ji_name=Boeing737&chu_fa_di=Beijing&mu_di_di=Shanghai&qi_fei_time=10:00&dao_da_time=12:00&zuo_wei_total=180
+fei_ji_name=Boeing737&chu_fa_di=Beijing&mu_di_di=Shanghai
+&qi_fei_time=10:00&dao_da_time=12:00&zuo_wei_total=180
 
 # Approve flight (Manager only)
 GET /feiji/pass?id=1
@@ -669,23 +665,17 @@ POST /feiji/update/entity
 
 # Delete flight
 POST /feiji/delete?id=1
-```
-
-### Seat Management API
-```http
-# View available seats for flight
+Seat Management API
+http# View available seats for flight
 GET /feijizuowei/toyuding?fei_ji_id=1
 
 # Complete seat booking
 POST /feijizuowei_pass/save/yuding
 Content-Type: application/x-www-form-urlencoded
 
-id=1&id_card=123456789&real_name=John Doe&email=john@example.com
-```
-
-### User Management API
-```http
-# List users (Admin only)
+id=1&id_card=123456789&real_name=John%20Doe&email=john@example.com
+User Management API
+http# List users (Admin only)
 GET /user/list
 
 # Create new user
